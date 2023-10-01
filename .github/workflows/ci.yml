@@ -49,7 +49,7 @@ jobs:
         environment: app-stage
         runs-on: ubunut-latest
         needs: build-and-push-docker-image
-        if: github.ref == 'refs/heads/masteer'
+        if: github.ref == 'refs/heads/master'
         steps:
             - uses: actions/checkout@v2
             - run: bash .deploy/scripts/packer-install.sh
