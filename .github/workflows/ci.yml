@@ -12,7 +12,7 @@ on:
             - master
         paths:
             - 'Dockerfile'
-            - '.github/workflow/**'
+            - '.github/workflows/**'
             - '.deploy/**'
             - 'src/**'
     pull_request:
