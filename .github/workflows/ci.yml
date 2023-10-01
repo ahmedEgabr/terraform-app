@@ -5,12 +5,11 @@ env:
     AWS_ACCESS_KRY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-# Add trigger for our workflow when push commit or pull request just in master
+    
 on:
     push:
         branches:
             - master
-# just when have changes on that file only
         paths:
             - 'Dockerfile'
             - '.github/workflow/**'
