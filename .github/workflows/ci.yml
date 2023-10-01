@@ -30,3 +30,14 @@ jobs:
                 node-version: '16'
             - run: npm ci
             - run: npm test
+    build-and-push-docker-image:
+        name: build and push docker image
+        runs-on: ubuntu-latest
+        needs: test
+        environment: app-stage
+        if: github.ref == 'refs/heads/master'
+        steps:
+            - uses: actions/checkout@v2
+            - run: docker login --username ${{ secrets.DOCKER_USEERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+            - run: docker build -t 3444866/nomad . 
+            - run: docker push 3444866/nomad
