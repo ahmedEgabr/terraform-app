@@ -41,3 +41,18 @@ jobs:
             - run: docker login --username ${{ secrets.DOCKER_USEERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
             - run: docker build -t 3444866/nomad . 
             - run: docker push 3444866/nomad
+    build-ami:
+        name: Build AMI images
+        env:
+            PKR_VAR_docker_username: ${{ secrets.DOCKER_USEERNAME }}
+            PKR_VAR_docker_password: ${{  secrets.DOCKER_PASSWORD }}
+        environment: app-stage
+        runs-on: ubunut-latest
+        needs: build-and-push-docker-image
+        if: github.ref == 'refs/heads/masteer'
+        steps:
+            - uses: actions/checkout@v2
+            - run: bash .deploy/scripts/packer-install.sh
+            - run: cd .deploy/packer && packer validate image.pkr.hcl
+            - name: build ami image
+              run: cd .deploy/packer && packer build image.pkr.hcl
