@@ -1,4 +1,3 @@
-# name of our pipline
 name: app-ci-pipline
 #global environment variables for our pipline
 env:
